@@ -10,6 +10,7 @@ class Message {
     let hour = parseInt(dateArr[4]);
     let mins = parseInt(dateArr[5]);
 
+    this.dateString = dateString;
     this.date = new Date(year,month,day,hour,mins);
     this.sender = sender;
     this.text = text;
@@ -25,5 +26,8 @@ class Message {
     return null;
   }
 
+  toString() {
+    return this.dateString + " - " + this.sender + ": " + this.text;
+  }
 
 }
