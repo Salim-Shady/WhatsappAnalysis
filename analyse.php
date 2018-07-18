@@ -14,10 +14,10 @@
       $fileLoc = "uploads/".$fileArr['name'];
 
       //prevent dir traversal
-      if (realpath($fileLoc) === false || $fileLoc !== realpath($fileLoc)) {
-        echo "<meta http-equiv=\"refresh\" content=\"0; url=./index.html\" />";
-        exit();
-      }
+      // if (realpath($fileLoc) === false || $fileLoc !== realpath($fileLoc)) {
+      //   echo "<meta http-equiv=\"refresh\" content=\"0; url=./index.html\" />";
+      //   exit();
+      // }
 
       move_uploaded_file($fileArr['tmp_name'], $fileLoc);
 
