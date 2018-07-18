@@ -22,17 +22,7 @@
     <div id="chatText">
       <?php echo $fileData; ?>
     </div>
-    <script>
-      let chatText = document.getElementById('chatText').innerHTML;
-      chatText = chatText.replace(/<br>/g, '');
-
-      //regex to pick out only chats
-      let exp = /\d{2}\/\d{2}\/\d{4}, \d{2}:\d{2} - .*:.*/g;
-      let arr, messages = [];
-      //while there are more chats add them to messages
-      while ((arr = exp.exec(chatText)) != null) {
-        messages.push(arr[0]);
-      }
-    </script>
+    <script src="Message.js" charset="utf-8"></script>
+    <script src="extract.js" charset="utf-8"></script>
   </body>
 </html>
