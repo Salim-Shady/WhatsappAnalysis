@@ -4,12 +4,21 @@
     <meta charset="utf-8">
     <title>Analyser</title>
     <?php
+      //check if file was posted
       if (!isset($_FILES['file'])) {
         echo "<meta http-equiv=\"refresh\" content=\"0; url=./index.html\" />";
         exit();
       }
+
       $fileArr = $_FILES['file'];
       $fileLoc = "uploads/".$fileArr['name'];
+
+      //prevent dir traversal
+      if (realpath($fileLoc) === false || $fileLoc !== realpath($fileLoc)) {
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./index.html\" />";
+        exit();
+      }
+
       move_uploaded_file($fileArr['tmp_name'], $fileLoc);
 
       $file = fopen($fileLoc, 'r');
