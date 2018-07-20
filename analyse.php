@@ -39,6 +39,6 @@
     <script src="Message.js" charset="utf-8"></script>
     <script src="Sender.js" charset="utf-8"></script>
     <script src="extract.js" charset="utf-8"></script>
-    <script src="getStats .js" charset="utf-8"></script>
+    <script src="getStats.js" charset="utf-8"></script>
   </body>
 </html>
