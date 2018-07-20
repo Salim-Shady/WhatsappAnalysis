@@ -14,10 +14,13 @@
       $fileLoc = "uploads/".$fileArr['name'];
 
       //prevent dir traversal
-      // if (realpath($fileLoc) === false || $fileLoc !== realpath($fileLoc)) {
-      //   echo "<meta http-equiv=\"refresh\" content=\"0; url=./index.html\" />";
-      //   exit();
-      // }
+      $basePath = getcwd();
+      $realBasePath = realpath($basePath);
+      $realFileLoc = realpath($fileLoc);
+      if ($realFileLoc === false || strpos($realFileLoc,$realBasePath) !== 0 ) {
+        echo "<meta http-equiv=\"refresh\" content=\"0; url=./index.html\" />";
+        exit();
+      }
 
       move_uploaded_file($fileArr['tmp_name'], $fileLoc);
 
@@ -26,12 +29,15 @@
       $fileData = htmlspecialchars($fileData);
       $fileData = nl2br($fileData);
     ?>
+    <script src = "https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <div id="chatText">
+    <div id="chatText" style="display:none">
       <?php echo $fileData; ?>
     </div>
+    <div id='container'></div>
     <script src="Message.js" charset="utf-8"></script>
     <script src="extract.js" charset="utf-8"></script>
+    <script src="drawData.js" charset="utf-8"></script>
   </body>
 </html>
