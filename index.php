@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Whatsapp Analyser</title>
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="form">
@@ -72,7 +76,7 @@
     <?php
       //check if file was posted
       
-      if (!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+      if (!isset($_FILES['file'])|| !file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
         exit();
       } else {
         //if file exists
