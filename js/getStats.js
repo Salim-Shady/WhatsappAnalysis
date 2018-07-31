@@ -28,7 +28,7 @@ let stats = {
   mostChars: {
     sender: null
   },
-  leastChars:
+  leastChars:null
 };
 
 let totalMsg = messageObj.length;
@@ -46,10 +46,3 @@ let sendersObj = [];
 for (sender in sendersArr) {
   sendersObj.push(new Sender(sender));
 }
-
-//add the messages to respective senders
-for (messages in messagesObj) {
-
-}
-
-//calcu
