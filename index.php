@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="form">
-      <form action="analyse.php" method="post" enctype="multipart/form-data">
+      <form action="index.php" method="post" enctype="multipart/form-data">
         <input type="text" name="fileName" placeholder="Group Name" >
         <input type="file" name="file">
         <input type="submit" name="submit" value="Submit">
