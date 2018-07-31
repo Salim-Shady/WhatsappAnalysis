@@ -30,3 +30,8 @@ for (let i = 0; i < messages.length; i++) {
   let obj = new Message(matchArr[1],matchArr[2],matchArr[3]);
   messageObj.push(obj);
 }
+
+let jsonMessageObj = JSON.stringify(messageObj);
+
+let url = 'php/addToDB.php';
+$.post(url,{'messages':jsonMessageObj}, function(cb) {alert(cb);});
