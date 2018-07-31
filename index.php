@@ -68,5 +68,43 @@
         return "" + rand;
       }
     </script>
+
+    <?php
+      //check if file was posted
+      
+      if (!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+        exit();
+      } else {
+        //if file exists
+        $fileArr = $_FILES['file'];
+        $fileLoc = "uploads/".$fileArr['name'];
+  
+        //prevent dir traversal
+        $basePath = getcwd();
+        $realBasePath = realpath($basePath);
+        $realFileLoc = realpath($fileLoc);
+        $fileData = '';
+        if ( $realFileLoc === false || strpos($realFileLoc,$realBasePath) !== 0 ) {
+          exit();
+        } else {
+          //if no dir traversal
+          move_uploaded_file($fileArr['tmp_name'], $fileLoc);
+    
+          $file = fopen($fileLoc, 'r');
+          $fileData = fread($file, filesize($fileLoc));
+          $fileData = htmlspecialchars($fileData);
+          $fileData = nl2br($fileData);  
+    ?>
+
+    <div id="chatText" style="display:none">
+      <?php echo $fileData; ?>
+    </div>
+    <div id='container'></div>
+    <script src="js/Message.js" charset="utf-8"></script>
+    <script src="js/extract.js" charset="utf-8"></script>
+    <?php 
+        }//if-else dirTraversal
+      }//if-else fileExists
+    ?>
   </body>
 </html>
