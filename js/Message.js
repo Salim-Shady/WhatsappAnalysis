@@ -11,7 +11,8 @@ class Message {
     // let mins = parseInt(dateArr[5]);
 
     this.dateString = dateString;
-    this.sqlDate = dateArr[3]+'-'+dateArr[2]+'-'+dateArr[1]+' '+dateArr[4]+':'+dateArr[5]+':00';
+    this.sqlDate = dateArr[3]+'-'+dateArr[2]+'-'+dateArr[1];
+    this.sqlTime = dateArr[4]+':'+dateArr[5]+':00';
     // this.date = new Date(year,month,day,hour,mins);
     this.sender = sender;
     this.text = text;
