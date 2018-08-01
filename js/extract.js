@@ -24,7 +24,7 @@ for (let i = 0; i < multiMessages.length; i++) {
 //turns all messages to message objects
 let messageObj = [];
 for (let i = 0; i < messages.length; i++) {
-  let regex = /(\d{2}\/\d{2}\/\d{4}, \d{2}:\d{2}) - (.*?):(.*)/g
+  let regex = /(\d{2}\/\d{2}\/\d{4}, \d{2}:\d{2}) - (.*?): (.*)/g
   let matchArr = regex.exec(messages[i]);
   if (!matchArr) continue;
   let obj = new Message(matchArr[1],matchArr[2],matchArr[3]);
@@ -34,4 +34,7 @@ for (let i = 0; i < messages.length; i++) {
 let jsonMessageObj = JSON.stringify(messageObj);
 
 let url = 'php/addToDB.php';
-$.post(url,{'messages':jsonMessageObj}, function(cb) {alert(cb);});
+$.post(url,{'messages':jsonMessageObj}, function(cb) {
+  alert(cb);
+  $('#loader').hide();
+});
