@@ -6,19 +6,10 @@
 
   $messages = json_decode($_POST['messages']);
   //retrieve login details
-  include("databaseDetails.php");
+  require_once("databaseDetails.php");
 
-  //create mysqli connection
-  $conn = new mysqli($dbHost,$dbUser,$dbPass);
-  !$conn->connect_error OR die();
-
-  $dbName = "whatsappanalysis";
-
-  //create database
-  $queryCreateDB = "CREATE DATABASE $dbName";
-  $conn->query($queryCreateDB) or die("Could not create DB: ".$conn->error);
-
-  
+  $queryCreateDB = "CREATE DATABASE $dbName CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
+  $conn->query($queryCreateDB);
   // $queryCreateTableSender = "CREATE TABLE $dbName.Sender (
   //   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   //   name VARCHAR(255) NOT NULL
@@ -32,7 +23,7 @@
     sender TEXT NOT NULL,
     message TEXT NOT NULL
     )";
-  $conn->query($queryCreateTableMessages) or die("Could not create Table: ".$conn->error);
+  $conn->query($queryCreateTableMessages);
 
   //load all messages to the db
   for ($i=0; $i < sizeof($messages); $i++) { 
@@ -46,4 +37,6 @@
     $queryAddMsg = "INSERT INTO $dbName.Messages VALUES ('$date','$time','$sender','$text')";
     $conn->query($queryAddMsg) or die($conn->error);
   }
+
+  $conn->close();
   
