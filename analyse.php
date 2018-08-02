@@ -11,20 +11,20 @@
     <?php
       //check if file was posted
       
-      if (!isset($_FILES['file'])|| !file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
-        echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+      if (!isset($_FILES['file']) || !file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+        echo '<meta http-equiv="refresh" content="2; url=index.php" />';
       } else {
         //if file exists
         $fileArr = $_FILES['file'];
-        $fileLoc = "uploads/".$fileArr['name'];
+        $fileLoc = "uploads/".str_replace(' ','',$fileArr['name']);
         
         //prevent dir traversal
         $basePath = getcwd();
         $realBasePath = realpath($basePath);
         $realFileLoc = realpath($fileLoc);
         $fileData = '';
-        if ( $realFileLoc === false || strpos($realFileLoc,$realBasePath) !== 0 ) {
-          echo '<meta http-equiv="refresh" content="0; url=index.php" />';
+        if ( !TRUE || ($realFileLoc === FALSE || strpos($realFileLoc,$realBasePath) !== 0) ) {
+          echo '<meta http-equiv="refresh" content="2; url=index.php" />';
         } else {
           //if no dir traversal
           move_uploaded_file($fileArr['tmp_name'], $fileLoc);
@@ -46,5 +46,6 @@
     <div id="container"></div>
     <script src="js/Message.js" charset="utf-8"></script>
     <script src="js/extract.js" charset="utf-8"></script>
+    <script src="js/database.js"></script>
   </body>
 </html>
