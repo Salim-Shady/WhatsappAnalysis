@@ -11,6 +11,29 @@ $.ajax({
   async:false
 });
 
+//post to php to retrieve sender stats
+let senders;
+$.ajax({
+  type:'POST',
+  url: 'php/findSender.php',
+  success: function(res) {
+    senders = JSON.parse(res);    
+  },
+  async: true
+});
+
+//post to php to retrive longest and shortest message
+let minMaxMessage;
+$.ajax({
+  type:'POST',
+  url: 'php/findMaxMin.php',
+  success: function(res) {
+    alert(res);
+    minMaxMessage = JSON.parse(res);    
+  },
+  async: true
+});
+
 //Deletes the DB
 $.ajax({
   type:'POST',
