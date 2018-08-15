@@ -34,10 +34,23 @@ $.ajax({
   async: true
 });
 
-//Deletes the DB
+let frequency;
 $.ajax({
   type:'POST',
-  url: 'php/dropDB.php',
-  async: false
+  url: 'php/findFreq.php',
+  success: function(res) {
+    alert(res);
+    frequency = JSON.parse(res);    
+  },
+  async: true
 });
+
+
+
+// //Deletes the DB
+// $.ajax({
+//   type:'POST',
+//   url: 'php/dropDB.php',
+//   async: false
+// });
 
