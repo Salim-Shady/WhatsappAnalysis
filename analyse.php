@@ -43,7 +43,18 @@
       <?php echo $fileData; ?>
     </div>
     <div id="loader">uploading to database</div>
-    <div id="container"></div>
+    <div id="container">
+      <input type="button" id='drop' value='Drop DB' style='display:none'>
+    </div>
+    <script>
+      $('#drop').click(function() {
+        $.ajax({
+          type:'POST',
+          url: 'php/dropDB.php',
+          async: false
+        });
+      });
+    </script>
     <script src="js/Message.js" charset="utf-8"></script>
     <script src="js/extract.js" charset="utf-8"></script>
     <script src="js/database.js"></script>
