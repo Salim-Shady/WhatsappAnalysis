@@ -4,9 +4,9 @@ $.ajax({
   type: 'POST',
   url: 'php/addToDB.php',
   data: {'messages':jsonMessageObj},
-  success: function(cb) {
-    // alert(cb);
-    $('#loader').text(cb);
+  success: function() {
+    $('#loader').hide();
+    $('#drop').show();
   },
   async:false
 });
@@ -28,7 +28,7 @@ $.ajax({
   type:'POST',
   url: 'php/findMaxMin.php',
   success: function(res) {
-    alert(res);
+    // alert(res);
     minMaxMessage = JSON.parse(res);    
   },
   async: true
@@ -39,18 +39,27 @@ $.ajax({
   type:'POST',
   url: 'php/findFreq.php',
   success: function(res) {
-    alert(res);
+    // alert(res);
     frequency = JSON.parse(res);    
   },
-  async: true
+  async: false
 });
 
+//sort frequency by day
+frequency.day.sort(function(a,b) {
+  let order = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  let indexA = order.indexOf(a.day);
+  let indexB = order.indexOf(b.day);
 
+  return indexA - indexB;
+});
 
-// //Deletes the DB
-// $.ajax({
-//   type:'POST',
-//   url: 'php/dropDB.php',
-//   async: false
-// });
+//sort frequency by hour
+frequency.hour.sort(function(a,b) {
+  return a.hour - b.hour;
+});
 
+//sort frequency by month
+frequency.month.sort(function(a,b) {
+  return a.month - b.month;
+});
