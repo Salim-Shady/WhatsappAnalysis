@@ -45,7 +45,12 @@
     <div id="loader">uploading to database</div>
     <div id="container">
       <input type="button" id='drop' value='Drop DB' style='display:none'>
+      <div class="total">
+        <svg id='totalMsgPie'></svg>
+      </div>
     </div>
+
+    <!-- Script to drop database -->
     <script>
       $('#drop').click(function() {
         $.ajax({
@@ -53,10 +58,12 @@
           url: 'php/dropDB.php',
           async: false
         });
+        history.go(-1);
       });
     </script>
     <script src="js/Message.js" charset="utf-8"></script>
     <script src="js/extract.js" charset="utf-8"></script>
     <script src="js/database.js"></script>
+    <script src="js/draw.js"></script>
   </body>
 </html>
