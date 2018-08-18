@@ -12,12 +12,12 @@ $.ajax({
 });
 
 //post to php to retrieve sender stats
-let senders;
+let total;
 $.ajax({
   type:'POST',
   url: 'php/findSender.php',
   success: function(res) {
-    senders = JSON.parse(res);    
+    total = JSON.parse(res);    
   },
   async: true
 });
