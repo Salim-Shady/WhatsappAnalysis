@@ -1,13 +1,25 @@
 <?php
   require_once('databaseDetails.php');
 
-  $queryFindSenders = "SELECT sender, COUNT(message) AS count FROM $dbName.Messages GROUP BY sender";
-  $res = $conn->query($queryFindSenders);
+  $queryTotalMsg = "SELECT sender, COUNT(message) AS count FROM $dbName.Messages GROUP BY sender";
+  $totalMsg = $conn->query($queryTotalMsg);
 
-  $rows = array();
-  while ($row = $res->fetch_assoc()) {
-    $rows[] = $row;
+  $queryTotalChars = "SELECT sender, SUM(LENGTH(message)) AS count FROM $dbName.messages GROUP BY sender";
+  $totalChars = $conn->query($queryTotalChars);
+
+  $arrTotalMsg = array();
+  while ($row = $totalMsg->fetch_assoc()) {
+    $arrTotalMsg[] = $row;
   }
 
-  print json_encode($rows, JSON_UNESCAPED_UNICODE);
+  $arrTotalChars = array();
+  while ($row = $totalChars->fetch_assoc()) {
+    $arrTotalChars[] = $row;
+  }
+
+  $result = array(
+    'messages'=>$arrTotalMsg,
+    'chars'=>$arrTotalChars
+  );
+  print json_encode($result, JSON_UNESCAPED_UNICODE);
   $conn->close();
