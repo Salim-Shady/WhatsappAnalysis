@@ -21,7 +21,8 @@
     date DATE NOT NULL,
     time TIME NOT NULL,
     sender TEXT NOT NULL,
-    message TEXT NOT NULL
+    message TEXT NOT NULL,
+    message_wordCount INT NOT NULL
     )";
   $conn->query($queryCreateTableMessages);
 
@@ -33,8 +34,9 @@
     $sender = $chat->sender;
     $text = $chat->text;
     $text = str_replace('\'', '\\\'', $text);
+    $wordCount = str_word_count($text);
 
-    $queryAddMsg = "INSERT INTO $dbName.Messages VALUES ('$date','$time','$sender','$text')";
+    $queryAddMsg = "INSERT INTO $dbName.Messages VALUES ('$date','$time','$sender','$text','$wordCount')";
     $conn->query($queryAddMsg) or die($conn->error);
   }
 
