@@ -2,29 +2,53 @@
   require_once('databaseDetails.php');
 
   //query selects the record with the most amount of characters in message
-  $queryMaxMessage = "SELECT date, time, sender, message, LENGTH(message) AS msgLen 
+  $queryMaxChars = "SELECT date, time, sender, message, LENGTH(message) AS msgLen 
                       FROM $dbName.Messages 
                       ORDER BY msgLen DESC
                       LIMIT 1";
-  $max = $conn->query($queryMaxMessage);
+
   
   //query selects the record with the least amount of characters in message
-  $queryMinMessage = "SELECT date, time, sender, message, LENGTH(message) AS msgLen 
+  $queryMinChars = "SELECT date, time, sender, message, LENGTH(message) AS msgLen 
                       FROM $dbName.Messages 
                       ORDER BY msgLen ASC
                       LIMIT 1";
-  $min = $conn->query($queryMinMessage);
+
+  $queryChars = "($queryMaxChars) UNION ALL ($queryMinChars)";
+  $Chars = $conn->query($queryChars);
+
+
   
-  //add the msgType parameter to distinguish both results
-  $max = $max->fetch_assoc();
-  $min = $min->fetch_assoc();
-  $max['msgType'] = 'max';
-  $min['msgType'] = 'min';
+  //query selects message with max words
+  $queryMaxWords = "SELECT date, time, sender, message, wordCount
+                      FROM $dbName.messages
+                      ORDER BY wordCount DESC
+                      Limit 1";
+
+  //query selects message with min words
+  $queryMinWords = "SELECT date, time, sender, message, wordCount
+                      FROM $dbName.messages
+                      ORDER BY wordCount ASC
+                      Limit 1";
   
+  $queryWords = "($queryMaxWords) UNION ALL ($queryMinWords)";
+  $Words = $conn->query($queryWords);
+
+
+
+  //convert all query results into arrays
+  $maxChars = $Chars->fetch_assoc();
+  $minChars = $Chars->fetch_assoc();
+  $maxWords = $Words->fetch_assoc();
+  $minWords = $Words->fetch_assoc();
+
   //adds the query results to an array
-  $rows = array();
-  $rows[] = $max;
-  $rows[] = $min;
+  $rows = array(
+    'maxChars' => $maxChars,
+    'minChars' => $minChars,
+    'maxWords' => $maxWords,
+    'minWords' => $minWords
+  );
   
   print json_encode($rows, JSON_UNESCAPED_UNICODE);
   $conn->close();
