@@ -22,7 +22,7 @@
     time TIME NOT NULL,
     sender TEXT NOT NULL,
     message TEXT NOT NULL,
-    message_wordCount INT NOT NULL
+    wordCount INT NOT NULL
     )";
   $conn->query($queryCreateTableMessages);
 
